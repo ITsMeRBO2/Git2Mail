@@ -1,0 +1,29 @@
+# Dépendances Node.js
+node_modules/
+
+# Build Next.js
+.next/
+out/
+
+# Variables d'environnement locales (ne jamais committer)
+.env.local
+.env.*.local
+
+# Fichiers systèmes
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Éditeurs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Vercel
+.vercel
