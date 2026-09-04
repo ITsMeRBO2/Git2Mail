@@ -18,11 +18,11 @@ const store = new Map<string, CacheEntry<any>>();
 if (typeof setInterval !== 'undefined') {
   setInterval(() => {
     const now = Date.now();
-    for (const [key, entry] of store.entries()) {
+    store.forEach((entry, key) => {
       if (entry.expiresAt && now > entry.expiresAt) {
         store.delete(key);
       }
-    }
+    });
   }, 60 * 1000); // Check every minute
 }
 
