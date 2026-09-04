@@ -18,28 +18,27 @@ export default function DashboardStats() {
   const router = useRouter();
 
   useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await fetch('/api/dash/stats');
+        if (res.status === 401) {
+          router.refresh();
+          return;
+        }
+        const data = await res.json();
+        if (data.success) {
+          setStats(data.stats);
+        } else {
+          setError(data.error);
+        }
+      } catch {
+        setError('Erreur de chargement');
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchStats();
-  }, []);
-
-  const fetchStats = async () => {
-    try {
-      const res = await fetch('/api/dash/stats');
-      if (res.status === 401) {
-        router.refresh();
-        return;
-      }
-      const data = await res.json();
-      if (data.success) {
-        setStats(data.stats);
-      } else {
-        setError(data.error);
-      }
-    } catch {
-      setError('Erreur de chargement');
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [router]);
 
   // Fix: use server-side logout route to properly clear the httpOnly cookie
   const logout = async () => {
